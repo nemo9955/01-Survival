@@ -1,27 +1,34 @@
 package com.nemo9955.survival10;
 
-import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Application;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.physics.bullet.Bullet;
+import com.nemo9955.survival10.states.SplashScreen;
+import com.nemo9955.survival10.storage.SU;
 
-public class Survival10 extends ApplicationAdapter {
-	SpriteBatch batch;
-	Texture img;
-	
+public class Survival10 extends Game {
+
+	{
+		Bullet.init();
+	}
+
+
 	@Override
-	public void create () {
-		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
+	public void create() {
+		SU.game = this;
+
+		Gdx.app.setLogLevel(Application.LOG_INFO);
+
+		setScreen(new SplashScreen());
 	}
 
 	@Override
-	public void render () {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();
+	public void dispose() {
+		SU.shapeRend.dispose();
+		SU.spritesBatch.dispose();
+		SU.manager.dispose();
+		Gdx.app.log("life", "All resources succesfully disposed !");
 	}
+
 }
