@@ -3,6 +3,7 @@ package com.nemo9955.survival10.storage;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.nemo9955.survival10.Survival10;
@@ -15,6 +16,8 @@ public class SU {
 	public static final AssetManager	manager			= new AssetManager();
 	public static final SpriteBatch		spritesBatch	= new SpriteBatch();
 	public static final ShapeRenderer	shapeRend		= new ShapeRenderer();
+	public static final ModelBatch		modelBatch		= new ModelBatch();
+
 
 	public static Survival10			game;
 

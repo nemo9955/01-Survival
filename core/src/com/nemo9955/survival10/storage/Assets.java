@@ -1,6 +1,7 @@
 package com.nemo9955.survival10.storage;
 
 import com.badlogic.gdx.assets.loaders.TextureLoader.TextureParameter;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -8,7 +9,8 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
 public enum Assets {
 	//@foff
-	
+	HEIGHT_MAP("world/heightmap.png",Pixmap.class),
+	TEXTURE_MAP("world/texture.png",Texture.class),
 	SKIN_ATLAS("img/uiskin.atlas", TextureAtlas.class), 
 	D_OLD_MODERN("fonts/D_OLD_MODERN.ttf", FreeTypeFontGenerator.class);
 	

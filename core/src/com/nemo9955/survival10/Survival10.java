@@ -28,6 +28,7 @@ public class Survival10 extends Game {
 		SU.shapeRend.dispose();
 		SU.spritesBatch.dispose();
 		SU.manager.dispose();
+		SU.modelBatch.dispose();
 		Gdx.app.log("life", "All resources succesfully disposed !");
 	}
 

@@ -43,7 +43,7 @@ public class MainMenu implements State<MenuController> {
 
 	@Override
 	public boolean onMessage(MenuController entity, Telegram telegram) {
-		return false;
+		return true;
 	}
 
 }
