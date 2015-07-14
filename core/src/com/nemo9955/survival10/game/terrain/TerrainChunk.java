@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.nemo9955.survival10.storage.Assets;
 import com.nemo9955.survival10.storage.SU;
+import com.nemo9955.survival10.utils.SimplexNoise;
 
 
 public class TerrainChunk {
@@ -41,10 +42,11 @@ public class TerrainChunk {
 				// h += MAX_PIXEL_COLOR / 2;
 				// h /= MAX_PIXEL_COLOR / 2;
 				// h *= MAX_HEIGHT;
-				map[i][j] = h;
-				System.out.print(h + " ");
+				// map[i][j] = h;
+				map[i][j] = (float) (SimplexNoise.noise(i, j));
+				// System.out.print(map[i][j] + " ");
 			}
-			System.out.print("\n");
+			// System.out.print("\n");
 		}
 
 
@@ -57,7 +59,8 @@ public class TerrainChunk {
 		sr.setColor(Color.CYAN);
 		for (int i = 0; i < size; i++)
 			for (int j = 0; j < size; j++) {
-				sr.point(i * 5, map[i][j], j * 5);
+				sr.setColor(0, map[i][j], map[i][j], 1);
+				sr.point(i * 0.05f, 0, j * 0.05f);
 
 			}
 		sr.end();
