@@ -12,10 +12,14 @@ import com.badlogic.gdx.graphics.g3d.Material;
 import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
+import com.badlogic.gdx.graphics.g3d.Shader;
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.graphics.g3d.environment.DirectionalLight;
 import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
 import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.nemo9955.survival10.game.shaders.TestShader;
 import com.nemo9955.survival10.game.terrain.TerrainChunk;
 import com.nemo9955.survival10.storage.SU;
 
@@ -25,8 +29,10 @@ public class Gameplay extends InputAdapter implements Screen {
 	public PerspectiveCamera		cam;
 	public CameraInputController	camController;
 	public ModelBatch				mb		= SU.modelBatch;
+	ShapeRenderer					sr		= SU.shapeRend;
 	public Model					model;
 	public ModelInstance			instance;
+	Shader							shader;
 
 	TerrainChunk					terr	= new TerrainChunk();
 
@@ -44,12 +50,17 @@ public class Gameplay extends InputAdapter implements Screen {
 		cam.update();
 
 		ModelBuilder modelBuilder = new ModelBuilder();
-		model = modelBuilder.createBox(5f, 5f, 5f, new Material(ColorAttribute.createDiffuse(Color.GREEN)),
-				Usage.Position | Usage.Normal);
+		model = modelBuilder.createSphere(2f, 2f, 2f, 20, 20, new Material(), Usage.Position | Usage.Normal
+				| Usage.TextureCoordinates);
 		instance = new ModelInstance(model);
+		ColorAttribute atr = ColorAttribute.createDiffuse(Color.RED);
+		instance.materials.get(0).set(atr);
 
 		camController = new CameraInputController(cam);
 		Gdx.input.setInputProcessor(camController);
+
+		shader = new TestShader();
+		shader.init();
 	}
 
 	@Override
@@ -60,39 +71,42 @@ public class Gameplay extends InputAdapter implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 
 		mb.begin(cam);
-		// mb.render(instance, environment);
-		terr.render(mb, cam);
+		sr.setProjectionMatrix(cam.combined);
+		sr.begin(ShapeType.Point);
+		sr.setColor(Color.CYAN);
+
+		// mb.render(instance, shader);
+		terr.render(cam, shader);
+
 		mb.end();
+		sr.end();
 	}
 
 	@Override
 	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void pause() {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void resume() {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void hide() {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void dispose() {
 		model.dispose();
-
+		shader.dispose();
+		instance.model.dispose();
 	}
 
 }
